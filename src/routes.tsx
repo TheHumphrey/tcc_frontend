@@ -7,8 +7,10 @@ import AsylumMaps from "./pages/AsylumMaps";
 const Routes = () => {
   return (
     <Router>
-      <Route path="/" component={Landing} exact />
-      <Route path="/map" component={AsylumMaps} />
+      <Switch>
+        <Route path="/" component={Landing} exact />
+        <Route path="/map" component={AsylumMaps} />
+      </Switch>
     </Router>
   );
 };
