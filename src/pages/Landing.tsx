@@ -15,7 +15,7 @@ const Landing = () => {
 
         <main>
           <h1>Leve Felicidade para o mundo</h1>
-          <p>Visite orfanatos e mude o dia de muitas crianças.</p>
+          <p>Visite asilos e mude o dia de muitos velhinhos.</p>
         </main>
 
         <div className="location">
