@@ -11,7 +11,10 @@ const Landing = () => {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
-        <img src={logoImg} alt="logo" />
+        <div className="title">
+          <img src={logoImg} alt="logo" />
+          <h1>Socialize</h1>
+        </div>
 
         <main>
           <h1>Leve Felicidade para o mundo</h1>

@@ -126,15 +126,14 @@ export default function CreateOrphanage() {
             <div className="input-block">
               <label htmlFor="images">Fotos</label>
 
-              {
-                previewImages.map(image => {
-                  return (
-                    <img key={image} src={image} alt={name} />
-                  )
-                })
-              }
-
               <div className="images-container">
+                {
+                  previewImages.map(image => {
+                    return (
+                      <img key={image} src={image} alt={name} />
+                    )
+                  })
+                }
                 <label htmlFor="image[]" className="new-image">
                   <FiPlus size={24} color="#15b6d6" />
                 </label>
