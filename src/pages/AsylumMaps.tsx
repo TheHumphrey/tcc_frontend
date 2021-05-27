@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
-import { FiPlus } from "react-icons/fi";
-import { Map, TileLayer } from "react-leaflet";
+import { FiPlus, FiArrowRight } from "react-icons/fi";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import Leaflet from 'leaflet';
 
 import mapMarkerImg from "../images/map-marker.svg";
 
-import "leaflet/dist/leaflet.css";
 import "../styles/pages/asylum-map.css";
+import api from "../services/api";
+
+const mapIcon = Leaflet.icon({
+  iconUrl: mapMarkerImg,
+  iconSize: [58, 68],
+  iconAnchor: [29, 68],
+  popupAnchor: [178, 2]
+})
+
+type TAsylum = {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+}
 
 const AsylumMaps = () => {
+  const [asylums, setAsylums] = useState<TAsylum[]>([])
+
+  useEffect(() => {
+    api.get('asylums').then(res => {
+      setAsylums(res.data)
+    })
+  }, [])
+
   return (
     <div id="page-map">
       <aside>
@@ -35,9 +58,30 @@ const AsylumMaps = () => {
         <TileLayer
           url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
         />
+
+        {
+          asylums.map(asylum => {
+            return (
+              <Marker
+                key={asylum.id}
+                icon={mapIcon}
+                position={[asylum.latitude, asylum.longitude]}
+              >
+                <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                  {asylum.name}
+                  <Link to={`asylum/${asylum.id}`}>
+                    <FiArrowRight size={20} color="FFF" />
+                  </Link>
+                </Popup>
+              </Marker>
+            )
+          })
+        }
+
+
       </Map>
 
-      <Link to="" className="create-asylum">
+      <Link to="asylum/create" className="create-asylum">
         <FiPlus size={32} color="#fff" />
       </Link>
     </div>
